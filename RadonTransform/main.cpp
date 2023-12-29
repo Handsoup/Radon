@@ -1,4 +1,8 @@
 #include "RadIm.hpp"
+#include "CSVHandler.hpp"
+#include "VectorOperations.h"
+
+#include <vector>
 
 int main() {
 
@@ -23,6 +27,16 @@ int main() {
 	//std::cout << "sum of col 1:" << cv::sum(obj.rotatedImage.col(9))[0] << std::endl;
 	obj.RadonTransform();
 	obj.PrintTransformMatrix();
+
+	CSVHandler csvHandler;
+	csvHandler.Write2DVectorToCSV(obj.transformMatrix, "proba.csv");
+	
+	std::vector<std::vector<double>> vect;
+
+	csvHandler.Load2DVectorFromCSV(vect, "proba.csv", ';');
+
+	// Displaying the read values
+   	Print2DDoubleVector(vect); 
 
     return 0;
 }

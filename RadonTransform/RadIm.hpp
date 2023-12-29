@@ -31,7 +31,8 @@ public:
     void PrintMatrix(const cv::Mat& matrix);
 	void RotateOne();
 	void PrintTransformMatrix();
-	
+	void SaveTransformMatrix(const std::string& savename);	
+
 	void RadonTransform();
 };
 
