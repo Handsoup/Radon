@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 
+// this is already implemented
+
 int main() {
     // Read the original image
     cv::Mat originalImage = cv::imread("/home/peppermintlarry/Radon/RadonTransform/Images/heart-ct_1.jpg"); // Replace with your image path

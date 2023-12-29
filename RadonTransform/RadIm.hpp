@@ -5,6 +5,7 @@
 #include <string>
 #include <cmath>
 #include <opencv2/opencv.hpp>
+#include <vector>
 
 class RadIm {
 private:
@@ -16,11 +17,22 @@ public:
     // Constructor with parameters
     RadIm(double step, const std::string& pth);
 
+	// Variables
+	double rows, cols = 0;
     cv::Mat originalImage;
     cv::Mat newImage;
-    void InitializeInputImage(const std::string& pth);
+	cv::Mat rotatedImage;
+	std::vector<std::vector<double>> transformMatrix;
+
+	// Functions
+    void InitializeClass(const std::string& pth);
     void displayValues();
     double CalculateAngle(double steps);
+    void PrintMatrix(const cv::Mat& matrix);
+	void RotateOne();
+	void PrintTransformMatrix();
+	
+	void RadonTransform();
 };
 
 #endif /* RADIM_HPP */
