@@ -1,6 +1,7 @@
 #include "RadIm.hpp"
 #include <opencv2/opencv.hpp>
 #include <cmath>
+#include "CSVHandler.hpp"
 
 // Constructor implementation
 RadIm::RadIm(double step, const std::string& pth) : steps(step), path(pth) {
@@ -77,8 +78,11 @@ void RadIm::InitializeClass(const std::string& pth) {
 	
 	
 	cols = newSize;
-	rows = steps + 1;
+	rows = steps + 1; 
 	transformMatrix.resize(rows, std::vector<double>(cols, 0));
+
+	transformedImage =  cv::Mat::zeros(rows, cols, CV_8UC1);
+
 
 	//}}}
 	
@@ -102,15 +106,22 @@ void RadIm::RotateOne() {
     cv::warpAffine(rotatedImage, rotatedImage, rotationMatrix, rotatedImage.size());
 
     // Display the original and rotated images
-    cv::imshow("Original Image", newImage);
+    /*cv::imshow("Original Image", newImage);
     cv::imshow("Rotated Image", rotatedImage);
-    cv::waitKey(0);
+    cv::waitKey(0);*/
 
     // Save the rotated image
-    cv::imwrite("path_to_save_rotated_image.jpg", rotatedImage);
+	// cv::imwrite("path_to_save_rotated_image.jpg", rotatedImage);
 	
 	//}}}
 	
+}
+
+void RadIm::SaveMatrixAsImage(const cv::Mat& matrix, const std::string& name) {
+	
+	
+	cv::imwrite(name, matrix);
+
 }
 
 void RadIm::RadonTransform() {
@@ -127,6 +138,16 @@ void RadIm::RadonTransform() {
 		RotateOne();
 	
 	}
+	
+
+	// Turning transformMatrix to cv::Mat to be able to save the transformed Image
+
+	// itt van a hiba
+	// Check if angles vector is not empty to avoid runtime errors
+	
+	Convert2DVectorToMatrix(transformMatrix, transformedImage);	
+
+
 }
 
 void RadIm::PrintTransformMatrix() {
@@ -145,18 +166,24 @@ void RadIm::PrintTransformMatrix() {
 	
 }
 
-void RadIm::SaveTransformMatrix(const std::string& savename) {
+void RadIm::SaveTransformMatrixAsCSV(const std::string& savename) {
 
-	
+	csvHandler.Write2DVectorToCSV(transformMatrix, savename);	
 
 }
 
+void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::Mat& matrix) {
+    if (vect.size() != matrix.rows || vect[0].size() != matrix.cols) {
+        std::cerr << "Error: Input vector dimensions do not match matrix dimensions." << std::endl;
+        return;
+    }
 
-
-
-
-
-
+    for (int i = 0; i < matrix.rows; ++i) {
+        for (int j = 0; j < matrix.cols; ++j) {
+            matrix.at<uchar>(i, j) = static_cast<uchar>(vect[i][j]);
+        }
+    }
+}
 
 
 
