@@ -8,7 +8,7 @@ RadIm::RadIm(double step, const std::string& pth) : steps(step), path(pth) {
 
 	angleSteps=CalculateAngle(steps);
 
-        InitializeClass(path);
+        InitializeClass();
 }
 
 void RadIm::displayValues() {
@@ -24,11 +24,11 @@ double RadIm::CalculateAngle(double steps) {
 	return 360.0/steps;
 }
 
-void RadIm::InitializeClass(const std::string& pth) {
+void RadIm::InitializeClass() {
 
 	// {{{
 
-	originalImage = cv::imread(pth); 
+	originalImage = cv::imread(path); 
     
     if (originalImage.empty()) {
         std::cerr << "Error: Could not read the image." << std::endl;
@@ -41,7 +41,7 @@ void RadIm::InitializeClass(const std::string& pth) {
     int newSize = static_cast<int>(newS);
 
     // Create a black square image with dimensions based on the new size
-   
+   	// !ATTENTION! CV_8UC3 means an 8 bit 3 channel unsigned char image so its not grayscale
     newImage = cv::Mat::zeros(newSize, newSize, CV_8UC3);
 	rotatedImage =  cv::Mat::zeros(newSize, newSize, CV_8UC3);
 
@@ -76,7 +76,8 @@ void RadIm::InitializeClass(const std::string& pth) {
     // Save the image with the original image placed on top of the white circle, inside the black square
     // cv::imwrite("image_with_circle_and_square3.png", newImage);
 	
-	
+		
+	// properties of the transformed image
 	cols = newSize;
 	rows = steps + 1; 
 	transformMatrix.resize(rows, std::vector<double>(cols, 0));
@@ -126,6 +127,7 @@ void RadIm::SaveMatrixAsImage(const cv::Mat& matrix, const std::string& name) {
 
 void RadIm::RadonTransform() {
 
+	//{{{
 	//in one loop: sum columns into nth subvector of our vector then rotate one and repeat
 	for(int i = 0; i < rows; i++) {
 
@@ -142,12 +144,9 @@ void RadIm::RadonTransform() {
 
 	// Turning transformMatrix to cv::Mat to be able to save the transformed Image
 
-	// itt van a hiba
-	// Check if angles vector is not empty to avoid runtime errors
-	
 	Convert2DVectorToMatrix(transformMatrix, transformedImage);	
-
-
+	//}}}
+	
 }
 
 void RadIm::PrintTransformMatrix() {
@@ -173,7 +172,9 @@ void RadIm::SaveTransformMatrixAsCSV(const std::string& savename) {
 }
 
 void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::Mat& matrix) {
-    if (vect.size() != matrix.rows || vect[0].size() != matrix.cols) {
+   
+	//{{{   
+	if (vect.size() != matrix.rows || vect[0].size() != matrix.cols) {
         std::cerr << "Error: Input vector dimensions do not match matrix dimensions." << std::endl;
         return;
     }
@@ -183,6 +184,8 @@ void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::
             matrix.at<uchar>(i, j) = static_cast<uchar>(vect[i][j]);
         }
     }
+	//}}}
+	
 }
 
 

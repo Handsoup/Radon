@@ -29,7 +29,7 @@ public:
 	CSVHandler csvHandler;
 
 	// Functions
-    void InitializeClass(const std::string& pth);
+    void InitializeClass();
     void displayValues();
     double CalculateAngle(double steps);
     void PrintMatrix(const cv::Mat& matrix);
