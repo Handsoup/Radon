@@ -3,13 +3,25 @@
 #include <cmath>
 #include "CSVHandler.hpp"
 
-// Constructor implementation
+// Constructor implementations
+RadIm::RadIm() { 
+	
+	steps = 0;
+	path = "-1 NO PATH";
+	angleSteps = 0;
+
+	//InitializeClass();
+
+
+}
+
 RadIm::RadIm(double step, const std::string& pth) : steps(step), path(pth) {
 
 	angleSteps=CalculateAngle(steps);
 
         InitializeClass();
 }
+
 
 void RadIm::displayValues() {
 
@@ -98,7 +110,7 @@ void RadIm::RotateOne() {
 
 	//{{{
 	// Define the center of rotation
-    cv::Point2f center(static_cast<float>(rotatedImage.cols) / 2, static_cast<float>(rotatedImage.rows) / 2);
+    cv::Point2f center((static_cast<float>(rotatedImage.cols)-1) / 2, static_cast<float>((rotatedImage.rows)-1) / 2);
 
     // Get the rotation matrix
     cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps, 1.0);

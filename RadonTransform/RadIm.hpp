@@ -10,13 +10,17 @@
 #include "CSVHandler.hpp"
 
 class RadIm {
-private:
+public:
+
+	// variables	
     double steps;
     std::string path;
     double angleSteps;
+    
+	// Default constructor
+	RadIm(); 
 
-public:
-    // Constructor with parameters
+	// Constructor with parameters
     RadIm(double step, const std::string& pth);
 
 	// Variables
@@ -29,7 +33,7 @@ public:
 	CSVHandler csvHandler;
 
 	// Functions
-    void InitializeClass();
+    virtual void InitializeClass();
     void displayValues();
     double CalculateAngle(double steps);
     void PrintMatrix(const cv::Mat& matrix);

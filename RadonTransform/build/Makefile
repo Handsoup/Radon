@@ -153,6 +153,30 @@ CSVHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/CSVHandler.cpp.s
 .PHONY : CSVHandler.cpp.s
 
+InvRadIm.o: InvRadIm.cpp.o
+.PHONY : InvRadIm.o
+
+# target to build an object file
+InvRadIm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/InvRadIm.cpp.o
+.PHONY : InvRadIm.cpp.o
+
+InvRadIm.i: InvRadIm.cpp.i
+.PHONY : InvRadIm.i
+
+# target to preprocess a source file
+InvRadIm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/InvRadIm.cpp.i
+.PHONY : InvRadIm.cpp.i
+
+InvRadIm.s: InvRadIm.cpp.s
+.PHONY : InvRadIm.s
+
+# target to generate assembly for a file
+InvRadIm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/InvRadIm.cpp.s
+.PHONY : InvRadIm.cpp.s
+
 RadIm.o: RadIm.cpp.o
 .PHONY : RadIm.o
 
@@ -213,6 +237,9 @@ help:
 	@echo "... CSVHandler.o"
 	@echo "... CSVHandler.i"
 	@echo "... CSVHandler.s"
+	@echo "... InvRadIm.o"
+	@echo "... InvRadIm.i"
+	@echo "... InvRadIm.s"
 	@echo "... RadIm.o"
 	@echo "... RadIm.i"
 	@echo "... RadIm.s"
