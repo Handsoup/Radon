@@ -18,7 +18,8 @@ public:
 	
 	void Fill(int n);
 	
-	void SetAngleStep(double s);	
+	void SetAngleStep(double s);
+	void ConvertMatrixTo2DVector(cv::Mat& matrix, std::vector<std::vector<double>>& vect);	
 
 };
 

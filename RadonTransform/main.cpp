@@ -9,11 +9,14 @@ int main() {
 
 	// Radon transform
 		
-	  /* {{{
+	  // {{{
 
     // Declaring parameters
-   	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/build/white_circle.png";	
-    int steps = 600;
+   	//std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/build/white_circle.png";	
+	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/SheppLogan_Phantom.svg.png";
+	//std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/small_sample.jpg";
+
+	int steps = 50;
 
 
 
@@ -29,39 +32,40 @@ int main() {
 
 	radobj.SaveTransformMatrixAsCSV("transformedimg.csv");
 
-	radobj.SaveMatrixAsImage(radobj.transformedImage, "img2.png");	
-	  
-	}}}*/
+//	radobj.SaveMatrixAsImage(radobj.transformedImage, "img2.png");	
+	radobj.SaveMatrixAsImage(radobj.transformedImage, "smallout.png");	
+  
+	// }}}
 	
 
 	// Here comes the inverse
 		
-	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/img3.png";	
-	std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/small_sample.jpg";	
+	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/img2.png";	
+	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/smallout.png";	
 
+	std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/smallout.png";
+	
 	InvRadIm invradobj(transformedimagepath);
+		
+	std::cout << invradobj.newImage << std::endl;
+	std::cout << invradobj.transformedImage << std::endl;
 
-	
-	invradobj.PrintMatrix(invradobj.newImage);
-	
-	
-//	invradobj.PrintMatrix(invradobj.rotatedImage);
-	invradobj.Fill(0);
-	invradobj.PrintMatrix(invradobj.rotatedImage);
-	invradobj.SetAngleStep(90.0);
-	invradobj.RotateOne();
-	invradobj.PrintMatrix(invradobj.rotatedImage);
-	invradobj.displayValues();
-	std::cout << invradobj.rotatedImage.cols << invradobj.rotatedImage.rows << std::endl;
+	invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invrad2.jpg");
 
-//	std::cout << "here comes the test" << std::endl;
+	invradobj.InverseRadonTransform();
+	
+
+	std::cout << invradobj.rotatedImage << std::endl;
+
+	invradobj.SaveTransformMatrixAsCSV("invIMG.csv");
+	
+	invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invradout.jpg");
+	
 	
 		
 
-	for (int i = 0; i < invradobj.newImage.cols; ++i) {
-    std::cout << static_cast<int>(invradobj.newImage.at<uchar>(0, i)) << std::endl;
-}
-
+	
+		
 	
 
     return 0;

@@ -91,7 +91,7 @@ void RadIm::InitializeClass() {
 		
 	// properties of the transformed image
 	cols = newSize;
-	rows = steps + 1; 
+	rows = steps; 
 	transformMatrix.resize(rows, std::vector<double>(cols, 0));
 
 	transformedImage =  cv::Mat::zeros(rows, cols, CV_8UC1);
@@ -186,6 +186,7 @@ void RadIm::SaveTransformMatrixAsCSV(const std::string& savename) {
 void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::Mat& matrix) {
    
 	//{{{   
+	// !ATTENTION! The matrix should be unsigned char for this function to work
 	if (vect.size() != matrix.rows || vect[0].size() != matrix.cols) {
         std::cerr << "Error: Input vector dimensions do not match matrix dimensions." << std::endl;
         return;

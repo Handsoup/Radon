@@ -37,17 +37,20 @@ void InvRadIm::InitializeClass() {
 	// CV_64FC1 because of the overlapping values huge containers are needed -> 64 bit pixels
 	rotatedImage =  cv::Mat::zeros(rows, cols, CV_64FC1);
 
-	steps = newImage.rows - 1;
+	steps = newImage.rows;
 	angleSteps = - CalculateAngle(steps);
+
+	transformMatrix.resize(rows, std::vector<double>(cols, 0));
+
+	transformedImage =  cv::Mat::zeros(rows, cols, CV_8UC1);
+
+
+
 	//}}}
 	
 }
 
-void InvRadIm::InverseRadonTransform() {
 
-
-
-}
 
 void InvRadIm::Fill(int n) {
 
@@ -58,7 +61,7 @@ void InvRadIm::Fill(int n) {
 
 			for(int j = 0; j < rotatedImage.cols; j++) {
 
-				rotatedImage.at<double>(i,j) = static_cast<double>(newImage.at<uchar>(n, j));
+				rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + static_cast<double>(newImage.at<uchar>(n, j));
 
 
 			}
@@ -73,9 +76,46 @@ void InvRadIm::SetAngleStep(double s) {
 
 }
 
+void InvRadIm::InverseRadonTransform() {
+	
+	// Rotating and filling in the values
+	for(int i = 0; i < steps + 1; i++ ) {
 
+		Fill(i);
+		RotateOne();
 
+	}
 
+	// Constructing the transformedImage and averaging the individual pixels
+	for(int i = 0; i < transformedImage.rows; i++) {
+		
+		for(int j = 0; j < transformedImage.cols; j++) {
+
+			transformedImage.at<uchar>(i,j) = static_cast<uchar>(rotatedImage.at<double>(i, j))/steps;
+
+		}
+	
+	}
+	std::cout << transformedImage << std::endl;
+
+	//constructing and std::vector for storing the image
+	ConvertMatrixTo2DVector(transformedImage, transformMatrix);
+
+}
+
+void InvRadIm::ConvertMatrixTo2DVector(cv::Mat& matrix, std::vector<std::vector<double>>& vect) {
+
+	for(int i = 0; i < matrix.rows; i++) {
+		
+		for(int j = 0; j < matrix.cols; j++) {
+
+			vect[i][j] = static_cast<double>(matrix.at<uchar>(i, j));
+
+		}
+	
+	}
+
+}
 
 
 
