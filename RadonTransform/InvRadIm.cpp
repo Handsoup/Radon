@@ -57,16 +57,17 @@ void InvRadIm::Fill(int n) {
 	//originalImage nth row -> rotatedImage
 	//accessing matrix elements: .at<type>(y,x) y,x are the coordinates of the matrix elements
 	
-		for(int i = 0; i < rotatedImage.rows; i++) {
+	for(int i = 0; i < rotatedImage.rows; i++) {
 
-			for(int j = 0; j < rotatedImage.cols; j++) {
+		for(int j = 0; j < rotatedImage.cols; j++) {
 
-				rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + static_cast<double>(newImage.at<uchar>(n, j));
+			rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + static_cast<double>(newImage.at<uchar>(n, j));
 
 
-			}
-
-		}	
+		}
+	}	
+	
+//	std::cout << rotatedImage << std::endl;
 
 }
 
@@ -85,18 +86,22 @@ void InvRadIm::InverseRadonTransform() {
 		RotateOne();
 
 	}
+	
+	// Getting max and min of rotatedImage
+	cv::minMaxIdx(rotatedImage, &min, &max);		
 
 	// Constructing the transformedImage and averaging the individual pixels
 	for(int i = 0; i < transformedImage.rows; i++) {
 		
 		for(int j = 0; j < transformedImage.cols; j++) {
 
-			transformedImage.at<uchar>(i,j) = static_cast<uchar>(rotatedImage.at<double>(i, j))/steps;
+			//transformedImage.at<uchar>(i,j) = static_cast<uchar>(std::round(rotatedImage.at<double>(i, j))/steps);
+			transformedImage.at<uchar>(i,j) = static_cast<uchar>(std::round((rotatedImage.at<double>(i, j)-min)/(max-min)*255));
 
 		}
 	
 	}
-	std::cout << transformedImage << std::endl;
+//	std::cout << transformedImage << std::endl;
 
 	//constructing and std::vector for storing the image
 	ConvertMatrixTo2DVector(transformedImage, transformMatrix);

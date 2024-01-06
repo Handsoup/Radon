@@ -7,7 +7,7 @@ class InvRadIm : public RadIm {
 
 
 public:
-	
+
 	std::string invpath;
 
 	InvRadIm(const std::string& pt);	

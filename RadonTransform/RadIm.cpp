@@ -2,6 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <cmath>
 #include "CSVHandler.hpp"
+#include "VectorOperations.h"
 
 // Constructor implementations
 RadIm::RadIm() { 
@@ -55,17 +56,17 @@ void RadIm::InitializeClass() {
     // Create a black square image with dimensions based on the new size
    	// !ATTENTION! CV_8UC3 means an 8 bit 3 channel unsigned char image so its not grayscale
     newImage = cv::Mat::zeros(newSize, newSize, CV_8UC3);
-	rotatedImage =  cv::Mat::zeros(newSize, newSize, CV_8UC3);
+	rotatedImage =  cv::Mat::zeros(newSize, newSize, CV_64FC1);
 
 
     // Calculate the radius of the circle (half of the new image's side)
-    int radius = newSize / 2;
+//    int radius = newSize / 2;
     
     // Calculate the center of the new image
     cv::Point center(newSize / 2, newSize / 2);
     
-    // Draw the white circle
-    cv::circle(newImage, center, radius, cv::Scalar(0, 0, 0), -1); // -1 indicates filled circle
+    // Draw the black circle
+  //  cv::circle(newImage, center, radius, cv::Scalar(0, 0, 0), -1); // -1 indicates filled circle
     
     // Calculate the position for placing the original image in the center of the new image
     int offsetX = (newSize - originalImage.cols) / 2;
@@ -79,7 +80,19 @@ void RadIm::InitializeClass() {
     cv::cvtColor(newImage, newImage, cv::COLOR_BGR2GRAY);
 	
 	// Copy initial state of image to the rotatedImage
-	newImage.copyTo(rotatedImage);
+	//newImage.copyTo(rotatedImage);
+	rotatedImage = cv::Mat::zeros(newImage.rows, newImage.cols, CV_64FC1);
+	// this for is the error in the code
+	for(int i = 0; i < newImage.rows; i++) {
+		
+		for(int j = 0; j < newImage.cols; j++) {
+
+			rotatedImage.at<double>(i, j) = static_cast<double>(newImage.at<uchar>(i, j));
+
+		}
+	
+	}
+
 
     // Display the grayscale image (optional)
     //cv::imshow("Grayscale Image", newImage);
@@ -94,6 +107,7 @@ void RadIm::InitializeClass() {
 	rows = steps; 
 	transformMatrix.resize(rows, std::vector<double>(cols, 0));
 
+//	doubleTransformedImage =  cv::Mat::zeros(rows, cols, CV_64FC1);
 	transformedImage =  cv::Mat::zeros(rows, cols, CV_8UC1);
 
 
@@ -140,12 +154,13 @@ void RadIm::SaveMatrixAsImage(const cv::Mat& matrix, const std::string& name) {
 void RadIm::RadonTransform() {
 
 	//{{{
+	
 	//in one loop: sum columns into nth subvector of our vector then rotate one and repeat
 	for(int i = 0; i < rows; i++) {
 
 		for(int j = 0; j < cols; j++) {
 		
-			transformMatrix[i][j] = std::round(cv::sum(rotatedImage.col(j))[0]/cols);
+			transformMatrix[i][j] = std::round(cv::sum(rotatedImage.col(j))[0]);
 		
 		}
 
@@ -186,17 +201,22 @@ void RadIm::SaveTransformMatrixAsCSV(const std::string& savename) {
 void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::Mat& matrix) {
    
 	//{{{   
+	
 	// !ATTENTION! The matrix should be unsigned char for this function to work
 	if (vect.size() != matrix.rows || vect[0].size() != matrix.cols) {
         std::cerr << "Error: Input vector dimensions do not match matrix dimensions." << std::endl;
         return;
     }
-
+	
+	//get max and min
+	FindMinMax(vect, min, max);
+	
     for (int i = 0; i < matrix.rows; ++i) {
         for (int j = 0; j < matrix.cols; ++j) {
-            matrix.at<uchar>(i, j) = static_cast<uchar>(vect[i][j]);
+            matrix.at<uchar>(i, j) = static_cast<uchar>((vect[i][j]-min)/(max-min)*255);
         }
     }
+	
 	//}}}
 	
 }

@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "CSVHandler.hpp"
+#include "VectorOperations.h"
 
 class RadIm {
 public:
@@ -16,7 +17,8 @@ public:
     double steps;
     std::string path;
     double angleSteps;
-    
+	double min, max;	
+
 	// Default constructor
 	RadIm(); 
 
