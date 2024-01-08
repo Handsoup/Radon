@@ -50,7 +50,11 @@ void InvRadIm::InitializeClass() {
 	
 }
 
+void InvRadIm::SeppLoganFilter(double L) {
 
+	Filter.SeppLoganMatrixFilter(newImage, L);	
+
+}
 
 void InvRadIm::Fill(int n) {
 

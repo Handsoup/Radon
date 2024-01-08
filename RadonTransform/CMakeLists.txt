@@ -5,6 +5,6 @@ project(RadonTransform)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-add_executable(RadonTransform main.cpp RadIm.cpp CSVHandler.cpp InvRadIm.cpp)
+add_executable(RadonTransform main.cpp RadIm.cpp CSVHandler.cpp InvRadIm.cpp FilterWheel.cpp)
 target_link_libraries(RadonTransform ${OpenCV_LIBRARIES})
 
