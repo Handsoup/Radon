@@ -7,15 +7,22 @@
 #include <vector>
 #include <algorithm>
 
-inline void Print2DDoubleVector(std::vector<std::vector<double>>& matrix) {
-   
-	for (const auto& row : matrix) {
+template<typename T>
+inline void PrintVector(const std::vector<T>& vec) {
+    for (const auto& val : vec) {
+        std::cout << val << ", ";
+    }
+    std::cout << std::endl;
+}
+
+template<typename T>
+inline void Print2DVector(const std::vector<std::vector<T>>& matrix) {
+    for (const auto& row : matrix) {
         for (const auto& val : row) {
             std::cout << val << ", ";
         }
         std::cout << std::endl;
     }
-
 }
 
 inline void FindMinMax(const std::vector<std::vector<double>>& matrix, double& minVal, double& maxVal) {

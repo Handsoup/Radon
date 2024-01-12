@@ -3,17 +3,20 @@
 #include "CSVHandler.hpp"
 #include "VectorOperations.h"
 #include "Alarm.h"
+#include "FilterWheel.hpp"
+#include <vector>
+#include <cmath>
 
 #include <vector>
 
 int main() {
 
 	// Radon transform
-		
-	  // {{{
+	  
+	// {{{
 
     // Declaring parameters
-   	//std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/build/white_circle.png";
+   //	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/build/white_circle.png";
 //	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/smallcirc.png";	
 
 	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/SheppLogan_Phantom.svg.png";
@@ -32,12 +35,12 @@ int main() {
 	radobj.RadonTransform();
 	//obj.PrintTransformMatrix();
 
-	radobj.SaveTransformMatrixAsCSV("transformedimg.csv");
+	radobj.SaveTransformMatrixAsCSV("IMG.csv");
 
 //	radobj.SaveMatrixAsImage(radobj.transformedImage, "img2.png");	
 	radobj.SaveMatrixAsImage(radobj.transformedImage, "smallout.png");	
  
- 	// }}}
+ 	// }}} 
 	
 
 	// Here comes the inverse
@@ -52,7 +55,10 @@ int main() {
 	//std::cout << invradobj.transformedImage << std::endl;
 
 	//invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invrad2.jpg");
-
+	// Filtering
+	invradobj.SeppLoganFilter(400);
+	invradobj.SaveMatrixAsImage(invradobj.newImage, "filteredIMG.jpg");
+	
 	invradobj.InverseRadonTransform();
 
 
@@ -65,16 +71,10 @@ int main() {
 
 	invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invradout.jpg");
 	
-	// alarm
-/*	int f = 244;
-	int dur = 1;
+	playSound(120, 1.0);
 
-	GenerateTone(f, dur);			
 
-*/	
-		
-	
 
-    return 0;
+	return 0;
 }
 

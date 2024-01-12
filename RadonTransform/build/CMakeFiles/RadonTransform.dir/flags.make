@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -isystem /usr/include/opencv4
+CXX_INCLUDES = -isystem /usr/include/opencv4 -isystem /home/peppermintlarry/SFML-2.6.1/include
 
 CXX_FLAGS = 
 

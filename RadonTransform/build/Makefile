@@ -153,6 +153,30 @@ CSVHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/CSVHandler.cpp.s
 .PHONY : CSVHandler.cpp.s
 
+FilterWheel.o: FilterWheel.cpp.o
+.PHONY : FilterWheel.o
+
+# target to build an object file
+FilterWheel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/FilterWheel.cpp.o
+.PHONY : FilterWheel.cpp.o
+
+FilterWheel.i: FilterWheel.cpp.i
+.PHONY : FilterWheel.i
+
+# target to preprocess a source file
+FilterWheel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/FilterWheel.cpp.i
+.PHONY : FilterWheel.cpp.i
+
+FilterWheel.s: FilterWheel.cpp.s
+.PHONY : FilterWheel.s
+
+# target to generate assembly for a file
+FilterWheel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RadonTransform.dir/build.make CMakeFiles/RadonTransform.dir/FilterWheel.cpp.s
+.PHONY : FilterWheel.cpp.s
+
 InvRadIm.o: InvRadIm.cpp.o
 .PHONY : InvRadIm.o
 
@@ -237,6 +261,9 @@ help:
 	@echo "... CSVHandler.o"
 	@echo "... CSVHandler.i"
 	@echo "... CSVHandler.s"
+	@echo "... FilterWheel.o"
+	@echo "... FilterWheel.i"
+	@echo "... FilterWheel.s"
 	@echo "... InvRadIm.o"
 	@echo "... InvRadIm.i"
 	@echo "... InvRadIm.s"

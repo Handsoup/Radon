@@ -243,6 +243,9 @@ RadonTransform_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 RadonTransform_SOURCE_DIR:STATIC=/home/peppermintlarry/Radon/RadonTransform
 
+//Path to a file.
+SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=/usr/lib64/cmake/boost_headers-1.83.0
 

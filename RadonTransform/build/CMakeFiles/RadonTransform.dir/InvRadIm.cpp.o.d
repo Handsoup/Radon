@@ -331,4 +331,5 @@ CMakeFiles/RadonTransform.dir/InvRadIm.cpp.o: \
  /home/peppermintlarry/Radon/RadonTransform/InvRadIm.hpp \
  /home/peppermintlarry/Radon/RadonTransform/RadIm.hpp \
  /home/peppermintlarry/Radon/RadonTransform/CSVHandler.hpp \
- /home/peppermintlarry/Radon/RadonTransform/VectorOperations.h
+ /home/peppermintlarry/Radon/RadonTransform/VectorOperations.h \
+ /home/peppermintlarry/Radon/RadonTransform/FilterWheel.hpp

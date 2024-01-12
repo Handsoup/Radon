@@ -6,25 +6,30 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <SFML/Audio.hpp>
 
-const double PI = 3.14159265358979323846;
-const int SAMPLE_RATE = 44100; // Sample rate (samples per second)
+inline void playSound(unsigned frequency, double duration) {
+    const unsigned SAMPLE_RATE = 44100;
+    const double TWO_PI = 6.28318;
 
-inline void GenerateTone(int frequency, int duration) {
-    int numSamples = SAMPLE_RATE * duration;
-    double* buffer = new double[numSamples];
+    const unsigned NUM_SAMPLES = SAMPLE_RATE * duration;
 
-    // Generate PCM waveform for the tone
-    for (int i = 0; i < numSamples; ++i) {
-        buffer[i] = 0.5 * sin(2 * PI * frequency * i / SAMPLE_RATE);
+    std::vector<sf::Int16> samples(NUM_SAMPLES);
+
+    for (unsigned i = 0; i < NUM_SAMPLES; ++i) {
+        double sample = std::sin(frequency * TWO_PI * i / SAMPLE_RATE);
+        samples[i] = static_cast<sf::Int16>(sample * 32767);
     }
 
-    // Play the generated PCM waveform
-    for (int i = 0; i < numSamples; ++i) {
-        std::cout << (char)(buffer[i] * 127 + 128);
-    }
+    sf::SoundBuffer buffer;
+    buffer.loadFromSamples(samples.data(), NUM_SAMPLES, 1, SAMPLE_RATE);
 
-    delete[] buffer;
+    sf::Sound sound(buffer);
+    sound.play();
+
+    while (sound.getStatus() == sf::Sound::Playing) {
+        // Wait until the sound finishes playing
+    }
 }
 
 #endif // ALARM_H

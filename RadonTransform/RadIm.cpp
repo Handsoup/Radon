@@ -34,7 +34,7 @@ void RadIm::displayValues() {
 
 double RadIm::CalculateAngle(double steps) {
 
-	return 360.0/steps;
+	return 180.0/steps;
 }
 
 void RadIm::InitializeClass() {
@@ -213,7 +213,7 @@ void RadIm::Convert2DVectorToMatrix(std::vector<std::vector<double>>& vect, cv::
 	
     for (int i = 0; i < matrix.rows; ++i) {
         for (int j = 0; j < matrix.cols; ++j) {
-            matrix.at<uchar>(i, j) = static_cast<uchar>((vect[i][j]-min)/(max-min)*255);
+            matrix.at<uchar>(i, j) = static_cast<uchar>(std::round((vect[i][j]-min)/(max-min)*255));
         }
     }
 	

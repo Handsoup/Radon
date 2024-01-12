@@ -333,4 +333,50 @@ CMakeFiles/RadonTransform.dir/main.cpp.o: \
  /home/peppermintlarry/Radon/RadonTransform/CSVHandler.hpp \
  /home/peppermintlarry/Radon/RadonTransform/VectorOperations.h \
  /home/peppermintlarry/Radon/RadonTransform/InvRadIm.hpp \
- /home/peppermintlarry/Radon/RadonTransform/Alarm.h
+ /home/peppermintlarry/Radon/RadonTransform/FilterWheel.hpp \
+ /home/peppermintlarry/Radon/RadonTransform/Alarm.h \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Config.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Clock.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Export.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Time.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Err.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/FileInputStream.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/InputStream.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/NonCopyable.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Lock.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/MemoryInputStream.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Mutex.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Sleep.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/String.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Utf.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Utf.inl \
+ /usr/include/c++/12.2/iterator \
+ /usr/include/c++/12.2/bits/stream_iterator.h \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/String.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Thread.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Thread.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/ThreadLocal.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/ThreadLocalPtr.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/ThreadLocalPtr.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Vector2.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Vector2.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Vector3.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/System/Vector3.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/InputSoundFile.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/Export.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/Listener.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/Music.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundStream.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundSource.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/AlResource.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/OutputSoundFile.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/Sound.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundBuffer.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundRecorder.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundFileFactory.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundFileFactory.inl \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundFileReader.hpp \
+ /home/peppermintlarry/SFML-2.6.1/include/SFML/Audio/SoundFileWriter.hpp

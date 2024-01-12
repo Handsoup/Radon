@@ -18,6 +18,7 @@ public:
 	void InitializeClass() override;
 	
 	FilterWheel Filter;
+	void SeppLoganFilter(double L);
 
 	void Fill(int n);
 	
