@@ -50,6 +50,30 @@ void InvRadIm::InitializeClass() {
 	
 }
 
+void InvRadIm::InvRotateOne() {
+
+	//{{{
+	// Define the center of rotation
+    cv::Point2f center((static_cast<float>(rotatedImage.cols)-1) / 2, static_cast<float>((rotatedImage.rows)-1) / 2);
+
+    // Get the rotation matrix
+    cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps, 1.0);
+
+    // Apply the affine transformation
+    cv::warpAffine(rotatedImage, rotatedImage, rotationMatrix, rotatedImageInit.size());
+
+    // Display the original and rotated images
+    /*cv::imshow("Original Image", newImage);
+    cv::imshow("Rotated Image", rotatedImage);
+    cv::waitKey(0);*/
+
+    // Save the rotated image
+	// cv::imwrite("path_to_save_rotated_image.jpg", rotatedImage);
+	
+	//}}}
+	
+}
+
 void InvRadIm::SeppLoganFilter(double L) {
 	
 		Filter.SeppLoganMatrixFilter(newImage, L);	
@@ -75,6 +99,27 @@ void InvRadIm::Fill(int n) {
 
 }
 
+/*
+void InvRadIm::Fill2(int n) {
+
+	//originalImage nth row -> rotatedImage
+	//accessing matrix elements: .at<type>(y,x) y,x are the coordinates of the matrix elements
+	
+	for(int i = 0; i < rotatedImage.rows; i++) {
+
+		for(int j = 0; j < rotatedImage.cols; j++) {
+
+			rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + static_cast<double>(newImage.at<uchar>(n, j));
+
+
+		}
+	}	
+	
+//	std::cout << rotatedImage << std::endl;
+
+}
+*/
+
 void InvRadIm::SetAngleStep(double s) {
 
 	angleSteps = s;
@@ -87,12 +132,18 @@ void InvRadIm::InverseRadonTransform() {
 	for(int i = 0; i < steps + 1; i++ ) {
 
 		Fill(i);
-		RotateOne();
+		InvRotateOne();
 
 	}
 	
+//	cv::imshow("Grayscale Image", rotatedImage);
+  //  cv::waitKey(0); 
+
+
 	// Getting max and min of rotatedImage
 	cv::minMaxIdx(rotatedImage, &min, &max);		
+
+
 
 	// Constructing the transformedImage and averaging the individual pixels
 	for(int i = 0; i < transformedImage.rows; i++) {
@@ -105,6 +156,40 @@ void InvRadIm::InverseRadonTransform() {
 		}
 	
 	}
+	SaveMatrixAsImage(transformedImage, "nofilterIMG.jpg");	
+
+
+
+
+	for(int i = 0; i < transformedImage.rows; i++) {
+		
+		for(int j = 0; j < transformedImage.cols; j++) {
+
+			if(transformedImage.at<uchar>(i, j) <= 223) {
+
+				transformedImage.at<uchar>(i, j) = static_cast<uchar>(223); 
+
+			}
+		}
+	
+	}
+
+	min, max = 0;
+	cv::minMaxIdx(transformedImage, &min, &max);
+
+	for(int i = 0; i < transformedImage.rows; i++) {
+		
+		for(int j = 0; j < transformedImage.cols; j++) {
+
+			transformedImage.at<uchar>(i, j) = ((transformedImage.at<uchar>(i,j)-min)/(max-min))*255; 
+
+		}
+	
+	}
+	
+
+
+
 //	std::cout << transformedImage << std::endl;
 
 	//constructing and std::vector for storing the image

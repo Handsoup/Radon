@@ -20,6 +20,7 @@ public:
 	FilterWheel Filter;
 	void SeppLoganFilter(double L);
 
+	void InvRotateOne();
 	void Fill(int n);
 	
 	void SetAngleStep(double s);

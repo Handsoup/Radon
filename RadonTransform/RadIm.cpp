@@ -82,12 +82,14 @@ void RadIm::InitializeClass() {
 	// Copy initial state of image to the rotatedImage
 	//newImage.copyTo(rotatedImage);
 	rotatedImage = cv::Mat::zeros(newImage.rows, newImage.cols, CV_64FC1);
+	rotatedImageInit = cv::Mat::zeros(newImage.rows, newImage.cols, CV_64FC1);
+
 	// this for is the error in the code
 	for(int i = 0; i < newImage.rows; i++) {
 		
 		for(int j = 0; j < newImage.cols; j++) {
 
-			rotatedImage.at<double>(i, j) = static_cast<double>(newImage.at<uchar>(i, j));
+			rotatedImageInit.at<double>(i, j) = static_cast<double>(newImage.at<uchar>(i, j));
 
 		}
 	
@@ -127,11 +129,12 @@ void RadIm::RotateOne() {
     cv::Point2f center((static_cast<float>(rotatedImage.cols)-1) / 2, static_cast<float>((rotatedImage.rows)-1) / 2);
 
     // Get the rotation matrix
-    cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps, 1.0);
+    cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps * stepNumber, 1.0);
 
     // Apply the affine transformation
-    cv::warpAffine(rotatedImage, rotatedImage, rotationMatrix, rotatedImage.size());
+    cv::warpAffine(rotatedImageInit, rotatedImage, rotationMatrix, rotatedImageInit.size(), cv::INTER_LINEAR);
 
+	stepNumber++;
     // Display the original and rotated images
     /*cv::imshow("Original Image", newImage);
     cv::imshow("Rotated Image", rotatedImage);

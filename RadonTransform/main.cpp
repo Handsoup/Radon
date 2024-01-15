@@ -12,7 +12,6 @@
 int main() {
 
 	// Radon transform
-	  
 	// {{{
 
     // Declaring parameters
@@ -22,7 +21,7 @@ int main() {
 	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/SheppLogan_Phantom.svg.png";
 	//std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/small_sample.jpg";
 
-	int steps = 1800;
+	int steps = 1000;
 
 
 
@@ -34,7 +33,7 @@ int main() {
 	
 	radobj.RadonTransform();
 	//obj.PrintTransformMatrix();
-
+	std::cout << "eddig ok" << std::endl;
 	radobj.SaveTransformMatrixAsCSV("IMG.csv");
 
 //	radobj.SaveMatrixAsImage(radobj.transformedImage, "img2.png");	
@@ -46,7 +45,6 @@ int main() {
 	// Here comes the inverse
 	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/img2.png";	
 	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/filtered.png";	
-
 	std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/smallout.png";
 	
 	InvRadIm invradobj(transformedimagepath);
@@ -55,10 +53,12 @@ int main() {
 	//std::cout << invradobj.transformedImage << std::endl;
 
 	//invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invrad2.jpg");
+
 	// Filtering
-	invradobj.SeppLoganFilter(400);
+	invradobj.SeppLoganFilter(200);
 	invradobj.SaveMatrixAsImage(invradobj.newImage, "filteredIMG.jpg");
-	
+
+
 	invradobj.InverseRadonTransform();
 
 
@@ -70,7 +70,7 @@ int main() {
 	invradobj.displayValues();
 
 	invradobj.SaveMatrixAsImage(invradobj.transformedImage, "invradout.jpg");
-	
+
 	playSound(120, 1.0);
 
 

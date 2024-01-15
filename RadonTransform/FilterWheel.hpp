@@ -14,6 +14,7 @@ class FilterWheel  {
 		FilterWheel();
 		
 		void VectorFullConvolve(std::vector<double> vect, std::vector<double> kernel, std::vector<double>& result);
+		void VectorConvolve(std::vector<double> vect, std::vector<double> kernel, std::vector<double>& result);
 		void SeppLoganMatrixFilter(cv::Mat& Matrix, double L);
 		double SeppLoganMatrixFilterFunction(double value, double L);
 };

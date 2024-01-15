@@ -6,6 +6,8 @@
 #include <vector>
 #include <numeric>
 
+constexpr double MOD = 998244353.0;
+
 // Constructor implementation
 FilterWheel::FilterWheel() {
 
@@ -49,9 +51,29 @@ void FilterWheel::VectorFullConvolve(std::vector<double> vect, std::vector<doubl
     result = tmp;    	
 }
 
+
+void FilterWheel::VectorConvolve(std::vector<double> vect, std::vector<double> kernel, std::vector<double>& result) {
+
+    // Stores the size of arrays
+    int n = vect.size(), m = kernel.size();
+
+    // Resize the convolution array c[]
+    result.resize(n + m - 1, 0.0);
+
+    // Traverse the two given arrays
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            // Update the convolution array
+            result[i + j] = fmod((result[i + j] + (vect[i] * kernel[j])), MOD);
+        }
+
+	}
+}
+
+
 double FilterWheel::SeppLoganMatrixFilterFunction(double x, double L){
 
-    double result = ((L * L) / (2 * M_PI * M_PI * M_PI) * ((M_PI / 2) - L * (x) * sin(L * (x))) / ((M_PI / 2) * (M_PI / 2) - (L * (x)) * (L * (x))));
+	double result = ((L * L) / (2 * M_PI * M_PI * M_PI) * ((M_PI / 2) - L * 0.01 * (x-100) * sin(L * 0.01 * (x-100))) / ((M_PI / 2) * (M_PI / 2) - (L * 0.01 * (x-100)) * (L * 0.01 * (x-100))));
     return result;	
 
 }
@@ -66,13 +88,13 @@ void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 	// Making the kernel -1 - 1  
 	for(int i = 0; i < kernel.size(); i++) {
 
-		kernel[i] = (SeppLoganMatrixFilterFunction((i/(1000)*2-1), L));
+		kernel[i] = SeppLoganMatrixFilterFunction(i/5, L);
 
 	}
 
 	//Normailize
 	
-	int sum = std::accumulate(kernel.begin(), kernel.end(), 0);
+/*	int sum = std::accumulate(kernel.begin(), kernel.end(), 0);
 	
 	
 	for(int i = 0; i < kernel.size(); i++) {
@@ -80,7 +102,7 @@ void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 		kernel[i] = kernel[i]/sum;
 
 	}
-
+*/
 	//PrintVector(kernel);
 
 	// newImage is the matrix this function works on, it is CV_8UC1  
@@ -107,9 +129,11 @@ void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 		}
 	
 	}
-
+	
+//	cv::imshow("Grayscale Image", tmp);
+//	cv::waitKey(0);
 //	std::cout << "tmp Matrix:\n"<< tmp << std::endl;	
-
+	
 	// normalizing and rounding and converting to uchar remains
 	double min, max = 0;
 	cv::minMaxIdx(tmp, &min, &max);

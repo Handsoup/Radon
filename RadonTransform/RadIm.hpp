@@ -17,7 +17,8 @@ public:
     double steps;
     std::string path;
     double angleSteps;
-	double min, max;	
+	double min, max;
+	int stepNumber = 1;	
 
 	// Default constructor
 	RadIm(); 
@@ -30,6 +31,7 @@ public:
     cv::Mat originalImage;
     cv::Mat newImage;
 	cv::Mat rotatedImage;
+	cv::Mat rotatedImageInit;
 	cv::Mat transformedImage;
 	std::vector<std::vector<double>> transformMatrix;
 	CSVHandler csvHandler;
