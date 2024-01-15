@@ -39,3 +39,20 @@ void CSVHandler::Load2DVectorFromCSV(std::vector<std::vector<double>>& items, co
 
 }
 
+void CSVHandler::Load2DStringVectorFromCSV(std::vector<std::vector<std::string>>& items, const std::string& path, char separator) {
+        std::ifstream csv(path);
+        std::string line;
+
+        if (csv.is_open()) {
+            while (std::getline(csv, line)) {
+                std::istringstream row_stream(line);
+                items.emplace_back();
+                for (std::string column; std::getline(row_stream, column, separator);) {
+                    items.back().push_back(column);
+                }
+            }
+            csv.close();
+        } else {
+            std::cout << "Unable to open file: " << path << std::endl;
+        }
+    }

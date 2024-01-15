@@ -11,7 +11,11 @@ public:
 
     void Write2DVectorToCSV(std::vector<std::vector<double>>& matrix, const std::string& name);
 
-    void Load2DVectorFromCSV(std::vector<std::vector<double>>& items, const std::string& path, char separator);
+    void Load2DVectorFromCSV(std::vector<std::vector<double>>& items, const std::string& path, char separator); 
+
+	void Load2DStringVectorFromCSV(std::vector<std::vector<std::string>>& items, const std::string& path, char separator); 
+
+
 };
 
 #endif /* CSV_HANDLER_HPP */

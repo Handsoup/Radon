@@ -1,0 +1,11 @@
+Input image path;/home/peppermintlarry/Radon/RadonTransform/Images/SheppLogan_Phantom.svg.png
+Steps; 2000
+Radon Image save path;smallout.png
+Radon CSV save path;IMG.csv
+Inverse Radon input path;/home/peppermintlarry/Radon/RadonTransform/build/smallout.png
+Inverse Radon filtered Image save path;filteredIMG.jpg;
+Inverse Radon Image save path;invradout.jpg
+Inverse Radon CSV save path;invIMG.csv
+
+
+

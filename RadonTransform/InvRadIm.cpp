@@ -36,6 +36,8 @@ void InvRadIm::InitializeClass() {
 
 	// CV_64FC1 because of the overlapping values huge containers are needed -> 64 bit pixels
 	rotatedImage =  cv::Mat::zeros(rows, cols, CV_64FC1);
+	buffer =  cv::Mat::zeros(rows, cols, CV_64FC1);
+
 
 	steps = newImage.rows;
 	angleSteps = - CalculateAngle(steps);
@@ -44,7 +46,7 @@ void InvRadIm::InitializeClass() {
 
 	transformedImage =  cv::Mat::zeros(rows, cols, CV_8UC1);
 
-
+	stepNumber = 0;
 
 	//}}}
 	
@@ -54,13 +56,17 @@ void InvRadIm::InvRotateOne() {
 
 	//{{{
 	// Define the center of rotation
-    cv::Point2f center((static_cast<float>(rotatedImage.cols)-1) / 2, static_cast<float>((rotatedImage.rows)-1) / 2);
+    cv::Point2f center((static_cast<float>(buffer.cols)-1) / 2, static_cast<float>((buffer.rows)-1) / 2);
 
     // Get the rotation matrix
-    cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps, 1.0);
+    cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, angleSteps * stepNumber, 1.0);
 
     // Apply the affine transformation
-    cv::warpAffine(rotatedImage, rotatedImage, rotationMatrix, rotatedImageInit.size());
+    cv::warpAffine(buffer, buffer, rotationMatrix, buffer.size());
+		
+	stepNumber++;
+
+
 
     // Display the original and rotated images
     /*cv::imshow("Original Image", newImage);
@@ -99,17 +105,17 @@ void InvRadIm::Fill(int n) {
 
 }
 
-/*
-void InvRadIm::Fill2(int n) {
+void InvRadIm::Fill2(cv::Mat& matrix, int n) {
 
 	//originalImage nth row -> rotatedImage
 	//accessing matrix elements: .at<type>(y,x) y,x are the coordinates of the matrix elements
+	//this function fills the nth row of the radontransformed image into a matrix
 	
-	for(int i = 0; i < rotatedImage.rows; i++) {
+	for(int i = 0; i < matrix.rows; i++) {
 
 		for(int j = 0; j < rotatedImage.cols; j++) {
 
-			rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + static_cast<double>(newImage.at<uchar>(n, j));
+			matrix.at<double>(i,j) =  static_cast<double>(newImage.at<uchar>(n, j));
 
 
 		}
@@ -118,7 +124,6 @@ void InvRadIm::Fill2(int n) {
 //	std::cout << rotatedImage << std::endl;
 
 }
-*/
 
 void InvRadIm::SetAngleStep(double s) {
 
@@ -126,13 +131,26 @@ void InvRadIm::SetAngleStep(double s) {
 
 }
 
-void InvRadIm::InverseRadonTransform() {
-	
+void InvRadIm::InverseRadonTransform() {	
+
 	// Rotating and filling in the values
 	for(int i = 0; i < steps + 1; i++ ) {
 
-		Fill(i);
+		Fill2(buffer, i);
+
 		InvRotateOne();
+
+		for(int i = 0; i < rotatedImage.rows; i++) {
+
+			for(int j = 0; j < rotatedImage.cols; j++) {
+
+				rotatedImage.at<double>(i,j) = rotatedImage.at<double>(i,j) + buffer.at<double>(i, j);
+
+
+			}
+		}
+
+		
 
 	}
 	
@@ -165,9 +183,9 @@ void InvRadIm::InverseRadonTransform() {
 		
 		for(int j = 0; j < transformedImage.cols; j++) {
 
-			if(transformedImage.at<uchar>(i, j) <= 223) {
+			if(transformedImage.at<uchar>(i, j) <= 217) {
 
-				transformedImage.at<uchar>(i, j) = static_cast<uchar>(223); 
+				transformedImage.at<uchar>(i, j) = static_cast<uchar>(217); 
 
 			}
 		}

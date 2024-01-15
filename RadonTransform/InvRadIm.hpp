@@ -10,6 +10,7 @@ class InvRadIm : public RadIm {
 public:
 
 	std::string invpath;
+	cv::Mat buffer;
 
 	InvRadIm(const std::string& pt);	
 
@@ -22,7 +23,9 @@ public:
 
 	void InvRotateOne();
 	void Fill(int n);
-	
+	void Fill2(cv::Mat& matrix, int n);
+
+
 	void SetAngleStep(double s);
 	void ConvertMatrixTo2DVector(cv::Mat& matrix, std::vector<std::vector<double>>& vect);	
 
