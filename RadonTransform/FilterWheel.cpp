@@ -15,6 +15,7 @@ FilterWheel::FilterWheel() {
 
 }
 
+// Convolution done by me
 
 void FilterWheel::VectorFullConvolve(std::vector<double> vect, std::vector<double> kernel, std::vector<double>& result){
 	
@@ -51,6 +52,7 @@ void FilterWheel::VectorFullConvolve(std::vector<double> vect, std::vector<doubl
     result = tmp;    	
 }
 
+// Convolution from GeeksforGeeks website, the one I wrote is better for this application 
 
 void FilterWheel::VectorConvolve(std::vector<double> vect, std::vector<double> kernel, std::vector<double>& result) {
 
@@ -78,7 +80,7 @@ double FilterWheel::SeppLoganMatrixFilterFunction(double x, double L){
 
 }
 
-// res is how many points you sample the Sepp Logan function
+// bounds is how many steps will be in the positive and negative region of the function, simetrically
 void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 
 	int bounds = 500;
@@ -92,17 +94,6 @@ void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 
 	}
 
-	//Normailize
-	
-/*	int sum = std::accumulate(kernel.begin(), kernel.end(), 0);
-	
-	
-	for(int i = 0; i < kernel.size(); i++) {
-
-		kernel[i] = kernel[i]/sum;
-
-	}
-*/
 	//PrintVector(kernel);
 
 	// newImage is the matrix this function works on, it is CV_8UC1  
@@ -134,7 +125,7 @@ void FilterWheel::SeppLoganMatrixFilter(cv::Mat& matrix, double L) {
 //	cv::waitKey(0);
 //	std::cout << "tmp Matrix:\n"<< tmp << std::endl;	
 	
-	// normalizing and rounding and converting to uchar remains
+	// normalizing and rounding and converting to uchar
 	double min, max = 0;
 	cv::minMaxIdx(tmp, &min, &max);
 

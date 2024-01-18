@@ -86,6 +86,7 @@ void InvRadIm::SeppLoganFilter(double L) {
 
 }
 
+// This is depricated Fill2 is the correct method
 void InvRadIm::Fill(int n) {
 
 	//originalImage nth row -> rotatedImage
@@ -177,7 +178,7 @@ void InvRadIm::InverseRadonTransform() {
 	SaveMatrixAsImage(transformedImage, "nofilterIMG.jpg");	
 
 
-
+	// Doing the histogram smoothing, every pixel value under 218 is set to 218
 
 	for(int i = 0; i < transformedImage.rows; i++) {
 		
@@ -192,6 +193,7 @@ void InvRadIm::InverseRadonTransform() {
 	
 	}
 
+	// Normalizing
 	min, max = 0;
 	cv::minMaxIdx(transformedImage, &min, &max);
 

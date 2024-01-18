@@ -6,13 +6,11 @@
 
 // Constructor implementations
 RadIm::RadIm() { 
-	
+
+	// Default constructor it is used by the child class	
 	steps = 0;
 	path = "-1 NO PATH";
 	angleSteps = 0;
-
-	//InitializeClass();
-
 
 }
 
@@ -59,21 +57,17 @@ void RadIm::InitializeClass() {
 	rotatedImage =  cv::Mat::zeros(newSize, newSize, CV_64FC1);
 
 
-    // Calculate the radius of the circle (half of the new image's side)
-//    int radius = newSize / 2;
     
     // Calculate the center of the new image
     cv::Point center(newSize / 2, newSize / 2);
     
-    // Draw the black circle
-  //  cv::circle(newImage, center, radius, cv::Scalar(0, 0, 0), -1); // -1 indicates filled circle
     
     // Calculate the position for placing the original image in the center of the new image
     int offsetX = (newSize - originalImage.cols) / 2;
     int offsetY = (newSize - originalImage.rows) / 2;
     cv::Rect roi(offsetX, offsetY, originalImage.cols, originalImage.rows);
     
-    // Copy the original image onto the new image on top of the white circle
+    // Copy the original image onto the new image on top of the square
     originalImage.copyTo(newImage(roi));
 	
 	// Convert newImage to grayscale in place
@@ -84,7 +78,6 @@ void RadIm::InitializeClass() {
 	rotatedImage = cv::Mat::zeros(newImage.rows, newImage.cols, CV_64FC1);
 	rotatedImageInit = cv::Mat::zeros(newImage.rows, newImage.cols, CV_64FC1);
 
-	// this for is the error in the code
 	for(int i = 0; i < newImage.rows; i++) {
 		
 		for(int j = 0; j < newImage.cols; j++) {

@@ -11,7 +11,9 @@
 #include <string> 
 
 int main() {
-
+	
+	// Initializing
+	
 	//Reading the input parameters from csv file
 	CSVHandler input;
 	std::vector<std::vector<std::string>> inputParameters;
@@ -19,10 +21,9 @@ int main() {
 	input.Load2DStringVectorFromCSV(inputParameters, "../input.csv", ';');
 	// in inputParameters[cols][rows]
 	Print2DVector(inputParameters);
-	std::cout << inputParameters[0][1] << std::endl;
+//	std::cout << inputParameters[0][1] << std::endl;
 
 	
-
 
 	
 
@@ -31,11 +32,8 @@ int main() {
 	// {{{
 
     // Declaring parameters
-   //	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/build/white_circle.png";
-//	std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/smallcirc.png";	
 
 	std::string imagepath = inputParameters[0][1];
-	//std::string imagepath = "/home/peppermintlarry/Radon/RadonTransform/Images/small_sample.jpg";
 
 	int steps = std::stoi(inputParameters[1][1]);
 
@@ -49,7 +47,6 @@ int main() {
 	
 	radobj.RadonTransform();
 	//obj.PrintTransformMatrix();
-	std::cout << "eddig ok" << std::endl;
 	radobj.SaveTransformMatrixAsCSV(inputParameters[3][1]);
 
 //	radobj.SaveMatrixAsImage(radobj.transformedImage, "img2.png");	
@@ -58,9 +55,7 @@ int main() {
  	// }}} 
 	
 
-	// Here comes the inverse
-	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/img2.png";	
-	//std::string transformedimagepath = "/home/peppermintlarry/Radon/RadonTransform/build/filtered.png";	
+	// Inverse Radon Transform
 	std::string transformedimagepath = inputParameters[4][1];
 	
 	InvRadIm invradobj(transformedimagepath);
